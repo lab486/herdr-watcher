@@ -1,0 +1,25 @@
+name: Bug report
+description: Something doesn't work as described.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: screen
+    attributes:
+      label: Screen text (for prompt problems)
+      description: If a prompt shows no buttons or the wrong ones, paste the output of `herdr pane read <pane-id> --source visible --format text`. Remove anything private first.
+      render: text
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: OS, `herdr --version`, and the herdr-watcher tag or commit.
+      placeholder: macOS 26.1, herdr 0.9.1, herdr-watcher v0.1.0
+    validations:
+      required: true

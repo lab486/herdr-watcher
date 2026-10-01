@@ -1,6 +1,8 @@
 # herdr-watcher
 
-A small web dashboard for [herdr](https://github.com/herdrdev/herdr) agents, built for your phone.
+[![CI](https://github.com/lab486/herdr-watcher/actions/workflows/ci.yml/badge.svg)](https://github.com/lab486/herdr-watcher/actions/workflows/ci.yml)
+
+A small web dashboard for [herdr](https://github.com/herdrdev/herdr) agents, built for your phone. Project page: [lab486.io/herdr-watcher](https://lab486.io/herdr-watcher).
 
 - Every workspace is a tab. **All** comes first and shows every agent.
 - Each agent shows herdr's status circle: working, needs you, done, or idle.
@@ -78,3 +80,7 @@ npm run dev                        # Vite dev server, proxies /api to :7483
 ```
 
 Parser fixtures in `test/fixtures/` are real screen captures from `herdr pane read --source visible --format text`. When Claude changes a dialog, capture it again and add a test.
+
+---
+
+Built by [Lab486](https://lab486.io). Want help with coding-agent workflows? Email hello@lab486.io.
