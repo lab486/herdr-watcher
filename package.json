@@ -10,6 +10,6 @@
     "start": "node server/main.js",
     "dev": "npm --prefix web run dev",
     "build": "npm --prefix web ci && npm --prefix web run build",
-    "test": "node --test test/"
+    "test": "node --test"
   }
 }
