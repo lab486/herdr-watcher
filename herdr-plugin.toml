@@ -3,7 +3,7 @@ name = "Herdr Watcher"
 version = "0.1.0"
 min_herdr_version = "0.9.0"
 description = "Local mobile-first web dashboard for herdr agents: status, prompts, and chat."
-platforms = ["macos", "linux"]
+platforms = ["macos", "linux", "windows"]
 
 [[build]]
 command = ["npm", "--prefix", "web", "ci"]
@@ -29,4 +29,4 @@ command = ["node", "bin/open.js"]
 id = "restart"
 title = "Watcher: restart server"
 contexts = ["workspace"]
-command = ["sh", "-c", "node bin/stop.js; sleep 0.5; node bin/launch.js"]
+command = ["node", "bin/restart.js"]

@@ -11,6 +11,7 @@ A herdr plugin that serves a mobile-first web dashboard on 127.0.0.1. Read READM
 ## Rules
 - Never read panes with `source: "recent"`. On an alternate-screen agent it scrolls the user's real pane. Use `visible`.
 - Herdr's pane `revision` does not track screen content. Do not cache screen reads with it.
+- Stay cross-platform (macOS, Linux, Windows). Manifest commands are argv with no shell, so use `node` scripts, never `sh`. On Windows herdr's socket is the named pipe `\\.\pipe\<socket path>`; see `socketAddress()` in `server/herdr.js`. CI runs the tests on all three OSes.
 - Never write on an `events.subscribe` connection. The server polls instead of subscribing.
 - The answer endpoint must re-read the screen and compare the fingerprint before it sends keys.
 - Keep the Host/Origin guard in `server/http.js`. The server binds to 127.0.0.1 with no auth by design; users bring their own tunnel.

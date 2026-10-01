@@ -37,4 +37,4 @@ export const needsAttention = (a: Agent) => a.status === 'blocked' || a.status =
 
 export const byUrgency = (a: Agent, b: Agent) => STATUS[a.status].rank - STATUS[b.status].rank
 
-export const basename = (p: string) => p.replace(/\/+$/, '').split('/').pop() || p
+export const basename = (p: string) => p.replace(/[\\/]+$/, '').split(/[\\/]/).pop() || p

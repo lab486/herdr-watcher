@@ -1,4 +1,5 @@
 import type { ChatMessage, ToolPart } from '@/lib/api'
+import { basename } from '@/lib/look'
 import { Conversation, ConversationContent, ConversationScrollButton } from '@/components/ai-elements/conversation'
 import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message'
 import { Tool, ToolContent, ToolHeader } from '@/components/ai-elements/tool'
@@ -6,7 +7,7 @@ import { Tool, ToolContent, ToolHeader } from '@/components/ai-elements/tool'
 function summary(t: ToolPart) {
   try {
     const i = JSON.parse(t.input)
-    const s = i.command ?? (i.file_path && i.file_path.split('/').pop()) ?? i.pattern ?? i.url ?? i.description ?? i.questions?.[0]?.question
+    const s = i.command ?? (i.file_path && basename(i.file_path)) ?? i.pattern ?? i.url ?? i.description ?? i.questions?.[0]?.question
     return typeof s === 'string' ? `${t.name}  ${s.split('\n')[0]}` : t.name
   } catch {
     return t.name

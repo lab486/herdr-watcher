@@ -25,7 +25,7 @@ The server listens on `127.0.0.1` only. How you reach it from your phone is your
 
 ## Install
 
-Requires herdr 0.9+ and Node 20+.
+Requires herdr 0.9+ and Node 20+ on macOS, Linux or Windows. Windows depends on herdr’s plugin support there, which herdr still marks as preview.
 
 ```sh
 herdr plugin install lab486/herdr-watcher

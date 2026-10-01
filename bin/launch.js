@@ -15,4 +15,4 @@ try {
 mkdirSync(stateDir, { recursive: true })
 const log = openSync(path.join(stateDir, 'server.log'), 'a')
 const main = fileURLToPath(new URL('../server/main.js', import.meta.url))
-spawn(process.execPath, [main], { detached: true, stdio: ['ignore', log, log], env: process.env }).unref()
+spawn(process.execPath, [main], { detached: true, windowsHide: true, stdio: ['ignore', log, log], env: process.env }).unref()

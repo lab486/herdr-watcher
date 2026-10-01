@@ -3,14 +3,17 @@ import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 
-export const socketPath =
-  process.env.HERDR_SOCKET_PATH || path.join(os.homedir(), '.config', 'herdr', 'herdr.sock')
+// herdr sets HERDR_SOCKET_PATH for plugin commands. On Windows its socket is a named pipe whose name is
+// `\\.\pipe\` + that path (interprocess GenericNamespaced), not a file.
+export function socketAddress(socketPath = process.env.HERDR_SOCKET_PATH || path.join(os.homedir(), '.config', 'herdr', 'herdr.sock'), platform = process.platform) {
+  return platform === 'win32' ? `\\\\.\\pipe\\${socketPath}` : socketPath
+}
 
 let seq = 0
 
 export function request(method, params = {}, timeoutMs = 5000) {
   return new Promise((resolve, reject) => {
-    const sock = net.createConnection(socketPath)
+    const sock = net.createConnection(socketAddress())
     let buf = ''
     const done = (err, val) => {
       clearTimeout(timer)
