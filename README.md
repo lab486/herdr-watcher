@@ -21,7 +21,7 @@ A small web dashboard for [herdr](https://github.com/herdrdev/herdr) agents, bui
   </tr>
 </table>
 
-The server listens on `127.0.0.1` only. How you reach it from your phone is your choice: Tailscale, an SSH tunnel, a reverse proxy, or anything else.
+The server listens on `127.0.0.1` only. How you reach it from your phone is your choice: Tailscale, an SSH tunnel, a reverse proxy, remote desktop (RDP), or anything else.
 
 ## Install
 
