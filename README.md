@@ -8,6 +8,19 @@ A small web dashboard for [herdr](https://github.com/herdrdev/herdr) agents, bui
 - **Decisions** walks you through every waiting question, one at a time.
 - Open an agent to read the conversation, see its terminal, or send it a message and keys.
 
+<table>
+  <tr>
+    <td><img src="docs/screenshots/all-agents.png" alt="All agents: workspace tabs, a waiting permission prompt with answer buttons, and other agents by status" width="260"></td>
+    <td><img src="docs/screenshots/agent-chat.png" alt="Agent chat: the Claude conversation with collapsed tool calls and a message box" width="260"></td>
+    <td><img src="docs/screenshots/agent-terminal.png" alt="Agent terminal: a mirror of the agent's screen with a key bar for Esc, Ctrl-C, Tab and arrows" width="260"></td>
+  </tr>
+  <tr>
+    <td align="center">All agents</td>
+    <td align="center">Chat</td>
+    <td align="center">Terminal</td>
+  </tr>
+</table>
+
 The server listens on `127.0.0.1` only. How you reach it from your phone is your choice: Tailscale, an SSH tunnel, a reverse proxy, or anything else.
 
 ## Install
