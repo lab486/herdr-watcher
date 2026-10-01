@@ -34,7 +34,14 @@ export function createTranscript(file) {
   const tools = new Map()
 
   function add(entry) {
-    if (entry.isSidechain || entry.isMeta || !entry.message) return
+    if (entry.isSidechain || entry.isMeta) return
+    // A prompt typed while Claude was busy is recorded as an attachment when it is absorbed mid-turn.
+    const a = entry.attachment
+    if (entry.type === 'attachment' && a?.type === 'queued_command' && a.commandMode === 'prompt' && (a.origin?.kind ?? 'human') === 'human') {
+      messages.push({ id: entry.uuid, role: 'user', parts: [{ type: 'text', text: String(a.prompt ?? '') }] })
+      return
+    }
+    if (!entry.message) return
     const { role, content } = entry.message
     if (entry.type === 'user' && role === 'user') {
       if (typeof content === 'string') {
