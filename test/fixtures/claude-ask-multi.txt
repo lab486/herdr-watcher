@@ -1,0 +1,37 @@
+
+
+❯ Use the Bash tool to run exactly: mkdir -p ./demo-dir && echo hi > ./demo-dir/a.txt . Do nothing else.
+
+  Ran 1 shell command
+
+⏺ I ran the command and it finished without errors. It made ./demo-dir/ and wrote hi to ./demo-dir/a.txt.
+
+✻ Baked for 5s · done 7:33 PM
+
+❯ Use the AskUserQuestion tool to ask me one question: 'Which color scheme?' with options Mocha, Latte, Frappe (single select). Then stop.
+
+⏺ User answered Claude's questions:
+  ⎿  · Which color scheme? → Latte
+
+⏺ You chose Latte.
+
+✻ Baked for 2s · done 7:33 PM
+
+❯ Use AskUserQuestion once with TWO questions: Q1 'Which toppings?' multiSelect true, options Cheese, Olives, Basil. Q2 'Which crust?' single select, options Thin, Thick. Then stop.
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+←  ☐ Toppings  ☐ Crust  ✔ Submit  →
+
+Which toppings?
+
+❯ 1. [ ] Cheese
+         Add cheese
+  2. [ ] Olives
+         Add olives
+  3. [ ] Basil
+         Add basil
+  4. [ ] Type something
+     Next
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  5. Chat about this
+
+Enter to select · Tab/Arrow keys to navigate · Esc to cancel

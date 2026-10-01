@@ -1,0 +1,31 @@
+
+ ▐▛███▛█   Claude Code v2.1.286
+▝▜██████▀  Opus 5.5 (1M context) · Claude Max
+ ▝▝   ▝▝   /tmp/demo
+
+
+❯ Use the Bash tool to run exactly: mkdir -p ./demo-dir && echo hi > ./demo-dir/a.txt . Do nothing else.
+
+  Ran 1 shell command
+
+⏺ I ran the command and it finished without errors. It made ./demo-dir/ and wrote hi to ./demo-dir/a.txt.
+
+✻ Baked for 5s · done 7:33 PM
+
+❯ Use the AskUserQuestion tool to ask me one question: 'Which color scheme?' with options Mocha, Latte, Frappe (single select). Then stop.
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☐ Color scheme
+
+Which color scheme?
+
+❯ 1. Mocha
+     Mocha color scheme
+  2. Latte
+     Latte color scheme
+  3. Frappe
+     Frappe color scheme
+  4. Type something.
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  5. Chat about this
+
+Enter to select · ↑/↓ to navigate · Esc to cancel

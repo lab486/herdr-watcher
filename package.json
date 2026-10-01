@@ -1,0 +1,15 @@
+{
+  "name": "herdr-watcher",
+  "version": "0.1.0",
+  "description": "Local mobile-first web dashboard for herdr agents",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server/main.js",
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web ci && npm --prefix web run build",
+    "test": "node --test test/"
+  }
+}

@@ -1,0 +1,180 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/400-italic.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@source "../node_modules/streamdown/dist/*.js";
+
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme inline {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --color-st-working: var(--st-working);
+  --color-st-blocked: var(--st-blocked);
+  --color-st-done: var(--st-done);
+  --color-st-idle: var(--st-idle);
+  --color-st-unknown: var(--st-unknown);
+  --color-mantle: var(--mantle);
+  --color-crust: var(--crust);
+  --color-surface: var(--surface);
+  --color-subtext: var(--subtext);
+  --color-on-status: var(--on-status);
+}
+
+/* Catppuccin, the palette herdr ships: Latte for light, Mocha for dark. Follows the system setting. */
+:root {
+  color-scheme: light;
+  --radius: 0.625rem;
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --card: #e6e9ef;
+  --card-foreground: #4c4f69;
+  --popover: #e6e9ef;
+  --popover-foreground: #4c4f69;
+  --primary: #4c4f69;
+  --primary-foreground: #eff1f5;
+  --secondary: #ccd0da;
+  --secondary-foreground: #4c4f69;
+  --muted: #ccd0da;
+  --muted-foreground: #6c6f85;
+  --accent: #bcc0cc;
+  --accent-foreground: #4c4f69;
+  --destructive: #d20f39;
+  --border: #ccd0da;
+  --input: #bcc0cc;
+  --ring: #7287fd;
+
+  --mantle: #e6e9ef;
+  --crust: #dce0e8;
+  --surface: #ccd0da;
+  --subtext: #6c6f85;
+  --on-status: #eff1f5;
+
+  /* herdr status colors */
+  --st-working: #df8e1d;
+  --st-blocked: #d20f39;
+  --st-done: #179299;
+  --st-idle: #40a02b;
+  --st-unknown: #9ca0b0;
+
+  /* workspace hues: never a status hue */
+  --ws-0: #8839ef;
+  --ws-1: #1e66f5;
+  --ws-2: #fe640b;
+  --ws-3: #209fb5;
+  --ws-4: #dd7878;
+  --ws-5: #7287fd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #1e1e2e;
+    --foreground: #cdd6f4;
+    --card: #181825;
+    --card-foreground: #cdd6f4;
+    --popover: #181825;
+    --popover-foreground: #cdd6f4;
+    --primary: #cdd6f4;
+    --primary-foreground: #1e1e2e;
+    --secondary: #313244;
+    --secondary-foreground: #cdd6f4;
+    --muted: #313244;
+    --muted-foreground: #a6adc8;
+    --accent: #45475a;
+    --accent-foreground: #cdd6f4;
+    --destructive: #f38ba8;
+    --border: #313244;
+    --input: #45475a;
+    --ring: #b4befe;
+
+    --mantle: #181825;
+    --crust: #11111b;
+    --surface: #313244;
+    --subtext: #a6adc8;
+    --on-status: #11111b;
+
+    --st-working: #f9e2af;
+    --st-blocked: #f38ba8;
+    --st-done: #94e2d5;
+    --st-idle: #a6e3a1;
+    --st-unknown: #6c7086;
+
+    --ws-0: #cba6f7;
+    --ws-1: #89b4fa;
+    --ws-2: #fab387;
+    --ws-3: #74c7ec;
+    --ws-4: #f5e0dc;
+    --ws-5: #b4befe;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--color-mantle);
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.45;
+    font-feature-settings: "kern", "liga";
+    overscroll-behavior-y: none;
+    min-height: 100dvh;
+  }
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes needs-you {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-st-blocked) 55%, transparent); }
+  50% { box-shadow: 0 0 0 5px transparent; }
+}
+.pulse-blocked {
+  animation: needs-you 2.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-blocked { animation: none; }
+}
+
+/* xterm */
+.xterm .xterm-viewport { background: transparent !important; }
