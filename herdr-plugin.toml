@@ -14,9 +14,18 @@ command = ["npm", "--prefix", "web", "run", "build"]
 [[startup]]
 command = ["node", "bin/launch.js"]
 
-# Watchdog: restart the server if it died.
+# Watchdog: start the server if it died, or if the plugin was installed while herdr
+# was already running (startup hooks don't run on install, link or enable).
 [[events]]
 on = "pane.agent_detected"
+command = ["node", "bin/launch.js"]
+
+[[events]]
+on = "pane.agent_status_changed"
+command = ["node", "bin/launch.js"]
+
+[[events]]
+on = "pane.focused"
 command = ["node", "bin/launch.js"]
 
 [[actions]]
