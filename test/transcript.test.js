@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
-import { appendFileSync, copyFileSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { createTranscript } from '../server/transcript.js'
+import { createTranscript, findTranscript, projectRoots } from '../server/transcript.js'
 
 const fixture = fileURLToPath(new URL('./fixtures/claude-transcript.jsonl', import.meta.url))
 
@@ -59,4 +59,34 @@ test('shows a message sent while Claude was busy (absorbed mid-turn)', () => {
   assert.equal(msgs[2].id, 'q1')
   assert.equal(msgs[2].parts[0].text, 'also update the README')
   assert.equal(msgs[3].parts[0].text, 'Will do.')
+})
+
+test('finds a transcript in a non-default Claude config dir, including one created later', () => {
+  const home = mkdtempSync(path.join(os.tmpdir(), 'hw-home-'))
+  const write = (dir, id) => {
+    const p = path.join(home, dir, 'projects', '-Users-me-proj')
+    mkdirSync(p, { recursive: true })
+    writeFileSync(path.join(p, `${id}.jsonl`), '')
+    return path.join(p, `${id}.jsonl`)
+  }
+  write('.claude', 'default-session')
+  const client = write('.claude-acme', '830b8ef5-5d7b-4dc6-b31c-8027e34ee76a')
+  mkdirSync(path.join(home, '.claude-empty')) // no projects dir: skipped
+  const roots = () => projectRoots(home, {})
+  assert.deepEqual(roots(), [path.join(home, '.claude', 'projects'), path.join(home, '.claude-acme', 'projects')])
+  assert.equal(findTranscript('830b8ef5-5d7b-4dc6-b31c-8027e34ee76a', roots), client)
+  assert.equal(findTranscript('later-session', roots), null)
+  const later = write('.claude-newclient', 'later-session')
+  assert.equal(findTranscript('later-session', roots), later)
+  assert.equal(findTranscript('../etc', roots), null)
+})
+
+test('searches CLAUDE_CONFIG_DIR first, wherever it lives', () => {
+  const home = mkdtempSync(path.join(os.tmpdir(), 'hw-home-'))
+  const custom = mkdtempSync(path.join(os.tmpdir(), 'hw-cfg-'))
+  mkdirSync(path.join(custom, 'projects', 'p'), { recursive: true })
+  writeFileSync(path.join(custom, 'projects', 'p', 'env-session.jsonl'), '')
+  const roots = projectRoots(home, { CLAUDE_CONFIG_DIR: custom })
+  assert.deepEqual(roots, [path.join(custom, 'projects')])
+  assert.equal(findTranscript('env-session', roots), path.join(custom, 'projects', 'p', 'env-session.jsonl'))
 })

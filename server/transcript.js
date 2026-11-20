@@ -3,22 +3,36 @@ import { existsSync, openSync, readSync, closeSync, statSync, readdirSync } from
 import os from 'node:os'
 import path from 'node:path'
 
-const PROJECTS = path.join(os.homedir(), '.claude', 'projects')
 const MAX_FIELD = 4000
 const KEEP = 200
 const found = new Map()
 
+// Claude Code keeps transcripts under its config dir: $CLAUDE_CONFIG_DIR, ~/.claude, or any ~/.claude-*
+// when people run Claude with a per-client CLAUDE_CONFIG_DIR.
+export function projectRoots(home = os.homedir(), env = process.env) {
+  const dirs = []
+  if (env.CLAUDE_CONFIG_DIR) dirs.push(path.resolve(env.CLAUDE_CONFIG_DIR))
+  dirs.push(path.join(home, '.claude'))
+  let names = []
+  try { names = readdirSync(home) } catch {}
+  for (const n of names.sort()) if (n.startsWith('.claude-')) dirs.push(path.join(home, n))
+  return [...new Set(dirs)].map((d) => path.join(d, 'projects')).filter((d) => existsSync(d))
+}
+
 // herdr's cwd may differ from Claude's (symlinks like /tmp → /private/tmp), so find the file by session id.
-export function findTranscript(sessionId) {
+// Roots are listed again on every miss, so a config dir created after startup is still found.
+export function findTranscript(sessionId, roots = projectRoots) {
   if (!sessionId || !/^[\w-]+$/.test(sessionId)) return null
   if (found.has(sessionId) && existsSync(found.get(sessionId))) return found.get(sessionId)
-  let dirs = []
-  try { dirs = readdirSync(PROJECTS) } catch { return null }
-  for (const d of dirs) {
-    const f = path.join(PROJECTS, d, `${sessionId}.jsonl`)
-    if (existsSync(f)) {
-      found.set(sessionId, f)
-      return f
+  for (const root of typeof roots === 'function' ? roots() : roots) {
+    let dirs = []
+    try { dirs = readdirSync(root) } catch { continue }
+    for (const d of dirs) {
+      const f = path.join(root, d, `${sessionId}.jsonl`)
+      if (existsSync(f)) {
+        found.set(sessionId, f)
+        return f
+      }
     }
   }
   return null

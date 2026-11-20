@@ -66,7 +66,7 @@ Then run **Watcher: restart server**.
 - `server/` is plain Node with no runtime dependencies. It polls herdr's socket (`session.snapshot`) once a second while a browser is connected, and it streams state over Server-Sent Events.
 - Herdr knows that an agent is blocked, but it does not know the question. For blocked Claude panes, `server/prompt-claude.js` reads the visible screen and parses the dialog into options.
 - An answer includes a fingerprint of the question. The server reads the screen again before it sends keys, so a stale tap can't answer a different question.
-- The chat view reads Claude's session transcript from `~/.claude/projects/*/<session-id>.jsonl`.
+- The chat view reads Claude's session transcript from `<config dir>/projects/*/<session-id>.jsonl`, where the config dir is `$CLAUDE_CONFIG_DIR`, `~/.claude`, or any `~/.claude-*` directory.
 - `web/` is React, Tailwind, shadcn/ui, AI Elements and xterm.js.
 
 Prompt parsing supports Claude Code only. Other agents still show their status, terminal and composer.
